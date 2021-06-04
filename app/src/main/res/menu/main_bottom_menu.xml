@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/new_responsible"
+        android:icon="@drawable/ic_baseline_group_add_foreground"
+        android:title="@string/title_new_responsible" />
+    <item
+        android:id="@+id/new_transaction"
+        android:icon="@drawable/ic_baseline_credit_card_foreground"
+        android:title="@string/title_new_transaction" />
+    <item
+        android:id="@+id/new_account"
+        android:icon="@drawable/ic_baseline_account_wallet_foreground"
+        android:title="@string/title_new_account" />
+    <item
+        android:id="@+id/navigation_configurations"
+        android:icon="@drawable/ic_baseline_miscellaneous_foreground"
+        android:title="@string/title_configurations" />
+</menu>
