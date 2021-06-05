@@ -14,7 +14,7 @@ data class Account(
         @ColumnInfo
         var responsibleId: Int,
         @ColumnInfo
-        var accountTypeEnum: AccountTypeEnum){
+        var accountType: AccountTypeEnum){
 
 
 

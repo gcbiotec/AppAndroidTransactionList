@@ -16,31 +16,55 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <!--        <TextView-->
+<!--            android:id="@+id/expenseCategoryTypeTV"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="249dp"-->
+<!--            android:layout_marginTop="28dp"-->
+<!--            android:layout_marginEnd="40dp"-->
+<!--            android:hint="Tipo de despesa"-->
+<!--            android:type="@{transactionViewModel.expenseCategoryType}"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--        <TextView-->
+<!--            android:id="@+id/transactionTypeTV"-->
+<!--            android:layout_width="99dp"-->
+<!--            android:layout_height="25dp"-->
+<!--            android:layout_marginStart="254dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="40dp"-->
+<!--            android:hint="Tipo de Transação"-->
+<!--            android:type="@{transactionViewModel.transactionType}"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/descriptionTV" />-->
+
+        <Spinner
             android:id="@+id/expenseCategoryTypeTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="249dp"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="40dp"
-            android:hint="Tipo de despesa"
-            android:type="@{transactionViewModel.expenseCategoryType}"
+            android:layout_marginStart="139dp"
+            android:layout_marginEnd="76dp"
+            android:entries="@{transactionViewModel.expenseCategoryTypeList}"
+            android:selectedItemPosition="@{transactionViewModel.selectedExpenseCategoryTypePosition}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintHorizontal_bias="0.828"
+            app:layout_constraintStart_toEndOf="@+id/calendarViewTV"
+            tools:layout_editor_absoluteY="260dp" />
 
-        <TextView
+        <Spinner
             android:id="@+id/transactionTypeTV"
-            android:layout_width="99dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="254dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="40dp"
-            android:hint="Tipo de Transação"
-            android:type="@{transactionViewModel.transactionType}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@{transactionViewModel.transactionTypeList}"
+            android:selectedItemPosition="@{transactionViewModel.selectedTransactionTypePosition}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.794"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionTV" />
+            tools:layout_editor_absoluteY="320dp" />
 
         <TextView
             android:id="@+id/destinationAccountTV"
@@ -76,9 +100,8 @@
             android:layout_marginStart="46dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="40dp"
-            android:double="@{transactionViewModel.value}"
+            android:text="@{transactionViewModel.value}"
             android:hint="Valor"
-            android:inputType="number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/calendarViewTV"
             app:layout_constraintTop_toBottomOf="@+id/idAccountTV" />
@@ -117,23 +140,35 @@
             android:layout_marginStart="26dp"
             android:layout_marginTop="48dp"
             android:hint="Data"
-            android:text="@{transactionViewModel.date}"
+            android:date="@{transactionViewModel.date}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <Spinner
             android:id="@+id/incomeTypeTV"
-            android:layout_width="100dp"
-            android:layout_height="27dp"
-            android:layout_marginStart="47dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="40dp"
-            android:hint="Valor"
-            android:inputType="number"
-            android:type="@{transactionViewModel.incomeType}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:entries="@{transactionViewModel.incomeTypeList}"
+            android:selectedItemPosition="@{transactionViewModel.selectedIncomeTypePosition}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/calendarViewTV"
-            app:layout_constraintTop_toBottomOf="@+id/expenseCategoryTypeTV" />
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/balanceET" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/incomeTypeTV"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="27dp"-->
+<!--            android:layout_marginStart="47dp"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginEnd="40dp"-->
+<!--            android:hint="Valor"-->
+<!--            android:inputType="number"-->
+<!--            android:type="@{transactionViewModel.incomeType}"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/calendarViewTV"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/expenseCategoryTypeTV" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

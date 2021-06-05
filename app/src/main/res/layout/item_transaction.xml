@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
+<!--<androidx.cardview.widget.CardView-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    >-->
+
+    <data>
+        <variable
+            name="transactionProjection"
+            type="com.example.businesscontrollv3.model.projection.TransactionProjection" />
+
+        <variable
+            name="cardListener"
+            type="com.example.businesscontrollv3.utils.CardListener" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:onClick="@{() -> cardListener.onClick(transactionProjection.transaction)}"
+        android:onLongClick="@{() -> cardListener.onLongClick(transactionProjection.transaction)}">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -103,7 +123,7 @@
             app:layout_constraintTop_toBottomOf="@+id/expenseCategoryTypeTV" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
 
-
+</layout>
 

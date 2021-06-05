@@ -7,6 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.businesscontrollv3.BR
 import com.example.businesscontrollv3.model.Account
+import com.example.businesscontrollv3.model.Responsible
 import com.example.businesscontrollv3.model.type.AccountTypeEnum
 import com.example.businesscontrollv3.repository.AccountRepository
 import com.example.businesscontrollv3.repository.ResponsibleRepository
@@ -18,33 +19,27 @@ class AccountViewModel(
     private val responsibleRepository: ResponsibleRepository
 ) : BaseViewModel() {
 
-    val accountList = this.accountRepository.getAccounts().asLiveData()
+    val accountList = accountRepository.getAccounts().asLiveData()
+
+    lateinit var responsibleList: List<Responsible>
 
     @Bindable
     var name: String = ""
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.name)
-//        }
 
     @Bindable
     var balance: String = ""
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.balance)
-//        }
 
     @Bindable
     var accountTypes = AccountTypeEnum.values().map { accountTypeEnum -> accountTypeEnum.type }
 
     @Bindable
     var selectedAccountTypePosition: Int = 0
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.selectedAccountTypePosition)
-//        }
-    @Bindable
-    var responsibleId: Int = 0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.selectedAccountTypePosition)
+        }
+
+    var accountTypePosition: Int = 0
 
     @Bindable
     var responsibleNames: List<String> = emptyList()
@@ -52,52 +47,85 @@ class AccountViewModel(
             field = value
             notifyPropertyChanged(BR.responsibleNames)
         }
+
+    @Bindable
+    var selectedResponsiblePosition: Int = 0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.selectedResponsiblePosition)
+        }
+
+    var responsiblePosition: Int = 0
+
+    @Bindable
+    var errorMessage: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.errorMessage)
+        }
+
     init {
-        responsibleRepository.getResponsibles().asLiveData().observeForever() {
+        val account = accountRepository.selectedAccount
+        if (account != null) {
+            this.name = account.name
+            this.balance = account.balance.toString()
+            this.selectedAccountTypePosition = account.accountType.ordinal
+        }
+
+        responsibleRepository.getResponsibles().asLiveData().observeForever {
             responsibleNames = it.map { responsible -> responsible.name }
+            responsibleList = it
+            if (account != null) {
+                this.selectedResponsiblePosition = responsibleList.indexOfFirst {
+                        responsible -> responsible.idResponsible == account.responsibleId
+                }
+            }
         }
     }
-
 
     fun save() {
-        viewModelScope.launch {
-            val account = Account(
-                name,
-                balance.toDouble(),
-                responsibleId,
-                accountTypeEnum = AccountTypeEnum.DEBITO
-            )
-            accountRepository.save(account)
+        if (formIsValid()) {
+            viewModelScope.launch {
+                val accountType = AccountTypeEnum.values()[accountTypePosition]
+                val responsible = responsibleList[responsiblePosition]
+                val account = if (accountRepository.selectedAccount != null) {
+                    accountRepository.selectedAccount!!.name = name
+                    accountRepository.selectedAccount!!.balance = balance.toDouble()
+                    accountRepository.selectedAccount!!.responsibleId = responsible.idResponsible!!
+                    accountRepository.selectedAccount!!.accountType = accountType
+                    accountRepository.selectedAccount!!
+                } else {
+                    Account(name, balance.toDouble(), responsible.idResponsible!!, accountType)
+                }
+
+                accountRepository.save(account)
+            }
+        } else {
+            this.errorMessage = "Formulário inválido, confira os campos antes de prosseguir"
         }
     }
 
-    fun formIsValid(): Boolean {
+    fun formIsValid() : Boolean {
         return name.isNotBlank() && balance.isNotBlank()
-        return true
+    }
+
+    fun selectAccountType(position: Int) {
+        accountTypePosition = position
+    }
+
+    fun selectResponsible(position: Int) {
+        responsiblePosition = position
+    }
+
+    fun deleteAccount(account: Account) = viewModelScope.launch {
+        accountRepository.deleteAccount(account)
+    }
+
+    fun selectedAccount(account: Account) {
+        accountRepository.selectedAccount = account
+    }
+
+    fun cleanSelectedAccount() {
+        accountRepository.selectedAccount = null
     }
 }
-//        return if (name.isNotBlank()) {
-//            Toast.makeText(context, "Salvando $name", Toast.LENGTH_LONG).show()
-//
-//            var accountEnum = AccountTypeEnum.fromString(accountType)
-//
-//            val accountResponsible =
-//                responsibleRepository.getResponsibles().asLiveData().value!!.find {
-//                    it.name == responsible
-//                }
-//
-//            val account =
-//                Account(name, balance, accountResponsible!!.idResponsible2!!, accountEnum!!)
-//
-//            viewModelScope.launch {
-//                accountRepository.save(responsible)
-//            }
-//
-//            allResponsibles.observeForever {
-//                Toast.makeText(context, "Usuarios salvos: $it", Toast.LENGTH_LONG).show()
-//            }
-//            true
-//        } else {
-//            Toast.makeText(context, "Não pode ser vazio", Toast.LENGTH_LONG).show()
-//            false
-//        }

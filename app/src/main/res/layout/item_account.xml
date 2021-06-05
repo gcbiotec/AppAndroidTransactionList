@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools">
+
+<data>
+    <variable
+        name="accountProjection"
+        type="com.example.businesscontrollv3.model.projection.AccountProjection" />
+
+    <variable
+        name="cardListener"
+        type="com.example.businesscontrollv3.utils.CardListener" />
+</data>
+
+<com.google.android.material.card.MaterialCardView
     android:layout_height="wrap_content"
-    android:layout_margin="8dp" >
+    android:layout_margin="8dp"
+    android:layout_width="match_parent"
+    android:onClick="@{() -> cardListener.onClick(accountProjection.account)}"
+    android:onLongClick="@{() -> cardListener.onLongClick(accountProjection.account)}">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -53,5 +66,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/balanceTV" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

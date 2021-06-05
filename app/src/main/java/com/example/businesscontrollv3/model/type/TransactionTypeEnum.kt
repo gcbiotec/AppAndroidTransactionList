@@ -6,4 +6,13 @@ enum class TransactionTypeEnum(val type:String) {
     INCOME("Receita"),
     TRANSFER("Transferencia");
 
+    companion object {
+
+        fun fromString(string: String): TransactionTypeEnum? {
+            return values().find {
+                it.type == string
+            }
+        }
+    }
+
 }

@@ -6,17 +6,19 @@ import com.example.businesscontrollv3.model.Account
 
 class AccountRepository(private val accountDAO: AccountDAO) {
 
-    //fun getAccounts(): List<Account>{
+    fun getAccounts() = accountDAO.getAllAccount()
 
-    fun getAccounts() = accountDAO.getAllAccounts()
+    var selectedAccount: Account? = null
 
     @WorkerThread
     suspend fun save(account: Account) {
         accountDAO.save(account)
     }
-    suspend fun deleteAccount(account: Account){
+
+    suspend fun deleteAccount(account: Account) {
         this.accountDAO.delete(account)
     }
+
 }
 
 //        val account1 = Account("banco 1", 22.0 , 1, AccountTypeEnum.DEBITO)

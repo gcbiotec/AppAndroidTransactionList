@@ -10,32 +10,37 @@ import com.example.businesscontrollv3.model.type.TransactionTypeEnum
 @Entity
 data class Transaction(
     @ColumnInfo
-    var value: Double = 0.0) {
-    @ColumnInfo
-    var description: String? = null
+    var value: String? = null,
 
     @ColumnInfo
-    lateinit var transactionType: TransactionTypeEnum
+    var description: String? = null,
 
     @ColumnInfo
-    var idResponsible: Int = 0
-
-    @PrimaryKey(autoGenerate = true)
+    var transactionType: TransactionTypeEnum,
 
     @ColumnInfo
-    var idAccount: Int = 0
+    var idResponsible: String? = null,
 
     @ColumnInfo
-    var incomeType: IncomeType? = null
+    var incomeType: IncomeType? = null,
 
     @ColumnInfo
-    var expenseCategoryType: ExpenseCategoryTypeEnum? = null
+    var expenseCategoryType: ExpenseCategoryTypeEnum,
 
     @ColumnInfo
-    var destinationAccount: Int? = null
+    var destinationAccount: String? = null,
+
+    @ColumnInfo
+    var idAccount: String? = null,
+)
+{
+
+    @PrimaryKey(
+        autoGenerate = true)
+    @ColumnInfo
+    var idTransaction: Int? = null
+
 }
-
-
 
 
 //package com.example.businesscontrollv3.model

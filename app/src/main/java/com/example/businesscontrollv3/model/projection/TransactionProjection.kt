@@ -6,13 +6,14 @@ import com.example.businesscontrollv3.model.Responsible
 
 import com.example.businesscontrollv3.model.Transaction
 
-data class TransactionProjection {
+data class TransactionProjection (
 
     @Embedded
     val transaction: Transaction,
-    @Relation(
-        parentColumn = "responsibleId",
-        entityColumn = "idResponsible"
+    @Relation(entity= Transaction::class,
+
+        parentColumn = "transactionId",
+        entityColumn = "idTransaction"
     )
     val responsible: Responsible
-}
+)
